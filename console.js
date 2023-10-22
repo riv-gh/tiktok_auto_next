@@ -15,12 +15,13 @@ function nextVideo() {
 	.click()
 }
 
-function hideComentBlock() {
-	findElementBySubClass('div', 'DivBrowserModeContainer').childNodes[1].style.display = 'none'
-	
+function hideComentBlockIfPortrait() {
+	if(window.screen.availHeight > window.screen.availWidth) {
+		findElementBySubClass('div', 'DivBrowserModeContainer').childNodes[1].style.display = 'none'
+	}
 }
 
-hideComentBlock()
+hideComentBlockIfPortrait()
 
 function isAll(oldTimeNum=0, isAllFunction=undefined) {
 
@@ -28,14 +29,12 @@ function isAll(oldTimeNum=0, isAllFunction=undefined) {
 		isAllFunction = nextVideo
 	}
 
-	var timeNum = getTimeNum()
-
-	var timeout = 300
+	const timeNum = getTimeNum()
 	
 	if (oldTimeNum>timeNum) {
 		isAllFunction()
 	}
-	setTimeout(isAll,timeout,timeNum,isAllFunction)
+	setTimeout(isAll, 300, timeNum, isAllFunction)
 }
 
 isAll()
